@@ -10,41 +10,36 @@
         body { font-family: 'Prompt', sans-serif; overflow-x: hidden; }
         .serif-thai { font-family: 'Noto Serif Thai', serif; }
         .font-imperial { font-family: 'Imperial Script', cursive; text-transform: none !important; }
-        #mobile-nav { transition: all 0.4s ease; }
+        
+        /* สไตล์สำหรับการ Slide เมนู */
+        #side-drawer {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .drawer-open #side-drawer { transform: translateX(0); }
+        .drawer-closed #side-drawer { transform: translateX(-100%); }
+        
+        /* Overlay พื้นหลังเวลาเปิดเมนู */
+        #overlay {
+            display: none;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(2px);
+        }
+        .drawer-open #overlay { display: block; }
     </style>
 </head>
-<body class="bg-[#F8F7F2] text-[#2D2D2D]">
+<body class="bg-[#F8F7F2] text-[#2D2D2D] drawer-closed">
 
-    <div class="flex flex-col md:flex-row min-h-screen border-b border-gray-200">
+    <section class="min-h-screen flex flex-col md:flex-row border-b border-gray-200">
         
-        <aside class="w-full md:w-64 bg-[#8B6F5A] text-white p-8 md:p-10 flex flex-col justify-between shrink-0">
-            <div class="flex flex-col">
-                <button onclick="toggleMenu()" class="group block w-12 space-y-2 mb-10 transition-all duration-300 transform hover:scale-110 focus:outline-none">
-                    <div class="w-10 h-[1.5px] bg-black"></div>
-                    <div class="w-10 h-[1.5px] bg-black"></div>
-                    <div class="w-10 h-[1.5px] bg-black"></div>
-                </button>
-
-                <nav id="mobile-nav" class="hidden md:flex flex-col space-y-4 text-sm md:text-base">
-                    <a href="#" class="block hover:text-black transition">Signature</a>
-                    <a href="#" class="block hover:text-black transition">Recommended Menu</a>
-                    <a href="#" class="block hover:text-black transition">Salad</a>
-                    <a href="#" class="block hover:text-black transition">Dipping</a>
-                    <a href="#" class="block hover:text-black transition">Curry</a>
-                    <a href="#" class="block hover:text-black transition">Fry</a>
-                    <a href="#" class="block hover:text-black transition">Grill</a>
-                    <a href="#" class="block hover:text-black transition">Chef’s favorite</a>
-                    <a href="#" class="block hover:text-black transition text-xs md:text-sm">Accompliments</a>
-                    <a href="#" class="block hover:text-black transition">Dessert</a>
-                    <a href="#" class="block hover:text-black transition">Beverage</a>
-                    <a href="#" class="block hover:text-black transition">Coffee & Tea</a>
-                </nav>
-            </div>
-
-            <div class="mt-20 md:mt-0">
-                <div class="text-[18px] md:text-[20px] opacity-70 uppercase tracking-tighter text-center md:text-left">
-                    @KANJANA SPUKK
-                </div>
+        <aside class="w-full md:w-64 bg-[#8B6F5A] text-white p-8 flex flex-col justify-start shrink-0">
+            <button onclick="toggleMenu()" class="group block w-12 space-y-2 mb-10 transition-all duration-300 transform hover:scale-110 focus:outline-none">
+                <div class="w-10 h-[1.5px] bg-black"></div>
+                <div class="w-10 h-[1.5px] bg-black"></div>
+                <div class="w-10 h-[1.5px] bg-black"></div>
+            </button>
+            
+            <div class="mt-auto hidden md:block">
+                <div class="text-[20px] opacity-70 uppercase tracking-tighter">@KANJANA SPUKK</div>
             </div>
         </aside>
 
@@ -55,49 +50,59 @@
             <div class="z-10 text-center">
                 <h2 class="text-7xl md:text-8xl serif-thai mb-4">แก่น</h2>
                 <p class="tracking-[0.5em] text-xl font-light">KAEN</p>
-                
                 <div class="mt-16">
-                    <img src="Michelin.jpg" alt="Michelin Awards" >
+                    <img src="Michelin.jpg" alt="Michelin" >
                 </div>
             </div>
         </main>
-    </div>
+    </section>
+
+    <div id="overlay" class="fixed inset-0 z-[60]" onclick="toggleMenu()"></div>
+    
+    <nav id="side-drawer" class="fixed top-0 left-0 h-full w-72 bg-[#8B6F5A] text-white z-[70] p-8 flex flex-col shadow-2xl overflow-y-auto">
+        <button onclick="toggleMenu()" class="text-right text-3xl font-light mb-10">&times; CLOSE</button>
+        
+        <div class="flex flex-col space-y-5 text-lg">
+            <a href="#" class="hover:text-black transition border-b border-white/10 pb-2">Signature</a>
+            <a href="#" class="hover:text-black transition border-b border-white/10 pb-2">Recommended Menu</a>
+            <a href="#" class="hover:text-black transition border-b border-white/10 pb-2">Salad</a>
+            <a href="#" class="hover:text-black transition border-b border-white/10 pb-2">Dipping</a>
+            <a href="#" class="hover:text-black transition border-b border-white/10 pb-2">Curry</a>
+            <a href="#" class="hover:text-black transition border-b border-white/10 pb-2">Fry</a>
+            <a href="#" class="hover:text-black transition border-b border-white/10 pb-2">Grill</a>
+            <a href="#" class="hover:text-black transition border-b border-white/10 pb-2">Chef’s favorite</a>
+            <a href="#" class="hover:text-black transition border-b border-white/10 pb-2">Dessert</a>
+            <a href="#" class="hover:text-black transition">Beverage</a>
+        </div>
+        
+        <div class="mt-auto pt-10 text-xs opacity-50">@KANJANA SPUKK</div>
+    </nav>
 
     <section class="py-24 px-6 max-w-4xl mx-auto text-center border-b border-gray-200">
-        <h3 class="text-3xl mb-12 serif-thai italic tracking-wide">CRAFT & CORE MENU</h3>
+        <h3 class="text-3xl mb-12 serif-thai italic tracking-wide uppercase">Craft & Core Menu</h3>
         <div class="space-y-8 text-left max-w-xl mx-auto font-light leading-relaxed text-gray-700">
-            <p><strong class="text-black">แก่นที่ ๑...</strong> แก่นแท้ หรือใจความสำคัญ คือการใชวัตถุดิบท้องถิ่นและความยั่งยืนด้านอาหาร</p>
-            <p><strong class="text-black">แก่นที่ ๒...</strong> แก่นไม้ ทางร้านมีไม้เป็นองค์ประกอบหลักทางสถาปัตยกรรม</p>
-            <p><strong class="text-black">แก่นที่ ๓...</strong> แก่นแก้ว ความแก่นเฟี้ยวของเชฟ ที่ใช้รังสรรค์เมนูอาหาร</p>
+            <p><strong class="text-black">แก่นที่ ๑...</strong> แก่นแท้ หรือใจความสำคัญ คือการใชวัตถุดิบท้องถิ่น</p>
+            <p><strong class="text-black">แก่นที่ ๒...</strong> แก่นไม้ ทางร้านมีไม้เป็นองค์ประกอบหลัก</p>
+    <p><strong class="text-black">แก่นที่ ๓...</strong> แก่นแก้ว ความแก่นเฟี้ยวของเชฟ ที่ใช้รังสรรค์เมนูอาหาร</p>
             <p><strong class="text-black">แก่นที่ ๔...</strong> ภาษาอีสาน มีความหมายว่า อยู่สบาย</p>
-            <p><strong class="text-black">แก่นที่ ๕...</strong> ขอนแก่น เราอยากทำให้คนขอนแก่นภูมิใจ</p>
+            <p><strong class="text-black">แก่นที่ ๕...</strong> ขอนแก่น เราอยากเป็นร้านอาหารที่ทำให้คนขอนแก่นรู้สึกภูมิใจ</p>
         </div>
-        <img src="kaen.jpg" class="mt-16 w-full h-96 object-cover rounded-sm shadow-2xl">
+        <img src="kaen.jpg" class="mt-16 w-full h-96 object-cover rounded-sm shadow-2xl" alt="KAEN Restaurant Interior">
     </section>
 
     <section class="bg-[#B5966D] py-24 text-center relative overflow-hidden">
         <div class="absolute top-0 left-0 w-full h-full opacity-10 flex items-center justify-center select-none pointer-events-none">
-             <span class="text-[30rem] md:text-[60rem] font-imperial text-white">Kaen</span>
+             <span class="text-[60rem] font-imperial text-white [#8B6F5A]">Kaen</span>
         </div>
         <div class="relative z-10 max-w-2xl mx-auto px-6">
-            <h2 class="text-white text-4xl mb-4 serif-thai tracking-wider uppercase">Taste of Khon Kaen</h2>
-            <h2 class="text-white/80 text-2xl mb-12 serif-thai">รสชาติขอนแก่น</h2>
-            <div class="rounded-xl overflow-hidden shadow-2xl border-4 border-white/20">
-                <img src="Maps.jpg" class="w-full h-auto">
+            <h2 class="text-white text-4xl mb-12 serif-thai tracking-wider">TASTE OF KHONKAEN</h2>
+            <h2 class="text-white text-4xl mb-12 serif-thai tracking-wider">รสชาติขอนแก่น</h2>
+            
+                <img src="Maps.jpg" class="w-full h-full object-cover transition-transform duration-00 group-hover:scale-105" alt="Khon Kaen Map">
             </div>
         </div>
     </section>
 
-    <footer class="bg-gray-100 py-12 text-center text-[10px] tracking-[0.3em] text-gray-400 uppercase">
-        @kanjana spukk
-    </footer>
-
-    <script>
-        function toggleMenu() {
-            const nav = document.getElementById('mobile-nav');
-            nav.classList.toggle('hidden');
-        }
-    </script>
                     <section class="py-24 px-6 bg-white border-b border-gray-100">
     <div class="max-w-2xl mx-auto space-y-10">
         
@@ -196,6 +201,18 @@
         @kanjana spukk
     </footer>
 
+    <script>
+        function toggleMenu() {
+            const body = document.body;
+            if (body.classList.contains('drawer-closed')) {
+                body.classList.remove('drawer-closed');
+                body.classList.add('drawer-open');
+            } else {
+                body.classList.remove('drawer-open');
+                body.classList.add('drawer-closed');
+            }
+        }
+    </script>
+
 </body>
 </html>
-
